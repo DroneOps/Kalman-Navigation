@@ -4,28 +4,30 @@ from djitellopy import Tello
 import time
 
 class MissionControl:
+    # Inicialización del tello y camara
     def __init__(self):
         self.tello = Tello()
         self.tello.connect()
         self.tello.streamon()
         self.cap = self.tello.get_frame_read()
         
-        self.aruco_controller = Control_Aruco.ArucoController(self, self.cap)
-        self.lock = threading.Lock()
-        self.running = True
-
+        self.aruco_controller = Control_Aruco.ArucoController(self, self.cap) # Guarda el codigo del control del aruco
+        self.lock = threading.Lock() # Bloquea ciertas acciones para que no se ejecuten al mismo tiempo sino una a la vez
+        self.running = True # Nos permite tener activa una accion
+        
+    # Obtener velocidades
     def get_speeds(self):
         speed_x = self.tello.get_speed_x()
         speed_y = self.tello.get_speed_y()
         speed_z = self.tello.get_speed_z()
         return speed_x, speed_y, speed_z
-
+    # despegar
     def takeoff(self):
         self.tello.takeoff()
-
+    # landear
     def land(self):
         self.tello.land()
-
+    # Guarda constantemente las velocidades
     def save_speeds(self):
         while self.running:
             try:
@@ -35,7 +37,7 @@ class MissionControl:
                 time.sleep(0.1)
             except:
                 time.sleep(0.5)
-
+    # Comienza el programa de aruco
     def start_mission(self):
         try:
             self.aruco_controller.run()
