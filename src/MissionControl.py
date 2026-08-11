@@ -54,11 +54,12 @@ class MissionControl:
                 self.tello.end()
             except:
                 pass
-    
+    # Movimiento del dron de acuerdo a las señales de Control_Aruco
     def send_control_signals(self, control_signal_y, control_signal_z, control_signal_x):
         # Mapeo exacto: control_signal_y (Alineación Izq/Der), control_signal_x (Avance), control_signal_z (Altura)
         self.tello.send_rc_control(int(control_signal_y), int(control_signal_x), int(control_signal_z), 0)
 
+# Inicializacion de la mision
 if __name__ == "__main__":
     mission_control = MissionControl()
     
