@@ -1,8 +1,17 @@
+"""
+Script to read Y and Z error values and plot them against the time steps.
+
+Author: DroneOps
+Repository: Kalman-Navigation
+"""
+
+# Import necessary libraries
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Scrip to read Y and Z error values and plot them against the time steps
+# Script to read Y and Z error values and plot them against the time steps
 def plot_errors(file_path):
+    
     # Read the data from the file
     data = np.loadtxt(file_path, delimiter=',', skiprows=1)
     
